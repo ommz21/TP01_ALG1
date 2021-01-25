@@ -1,4 +1,4 @@
-#include "grafo.h"
+#include "headers/grafo.h"
 #include <iomanip>
 #include <sstream>
 
@@ -23,7 +23,7 @@ int main()
     for (int i = 0; i < quant_centros; i++)
     {
         getline(std::cin, linha);
-        std::vector<int> lista_adj;
+        std::list<int> lista_adj;
         stream = std::istringstream(linha);
         while(stream >> texto_posto)
         {
@@ -33,12 +33,16 @@ int main()
         cidade.InsereCentros(lista_adj);
     }
     
-    // Coloca 
-    cidade.InserePostos(std::vector<int>());
+    // Insere uma lista vazia na posicao zero para que os indices dos
+    // postos sejam os mesmos do numero indicado ao pela entrada do programa
+    cidade.InserePostos(std::list<int>());
+    
+    // Insere todos as arestas adjascentes aos postos de vacinacao de maneira que
+    // locais[i] = vertices adjascentes ao posto i
     for (int i = 0; i < quant_postos; i++)
     {
         getline(std::cin, linha);
-        std::vector<int> lista_adj;
+        std::list<int> lista_adj;
         stream = std::istringstream(linha);
         while(stream >> texto_posto)
         {
@@ -48,12 +52,17 @@ int main()
         cidade.InserePostos(lista_adj);
     }
     
+    // Insere os centros de distribuicoes nas posicoes apos todos os postos de vacinacao
     cidade.CopiaCentros();
     
-    cidade.ImprimeGrafo();
-
+    // Chama o BFS para contabilzar todos os postos de vacinacao alcancados por todas as rotas
     cidade.BuscaEmLargura();
+
+    // Chama o DFS para determinar se existe alguma rota que passe pelo mesmo posto
+    // de vacinacao mais de uma vez durante a mesma rota
     cidade.BuscaEmProfundidade();
+
+    // Exibe na tela todas as informacoes coletadas pelo programa
     cidade.ImprimeSaida();
     
     return 0;
