@@ -7,13 +7,13 @@
 #include <list>
 #include <queue>
 
-/*Assinatura dos atributos e metodos da classe Grafo*/
+// Assinatura dos atributos e metodos da classe Grafo
 class Grafo
 {
     public:
         Grafo(int q_centros, int q_postos, int d_temp);
-        void InsereCentros(std::vector<int> lista);
-        void InserePostos(std::vector<int> lista);
+        void InsereCentros(std::list<int> lista);
+        void InserePostos(std::list<int> lista);
         void CopiaCentros();
         void ImprimeGrafo();
         void BuscaEmLargura();
@@ -25,8 +25,8 @@ class Grafo
         void VisitaDfs(int vertice_u);
         int quant_centros, quant_postos, max_arestas, alcancados;
         bool loop;
-        std::vector<std::vector<int>> centros;
-        std::vector<std::vector<int>> locais;
+        std::vector<std::list<int> > centros;
+        std::vector<std::list<int> > locais;
         std::vector<std::string> cor;
         std::vector<int> dist;
         std::queue<int> fila;
